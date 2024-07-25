@@ -1,17 +1,9 @@
+import { Grid, Skeleton, Stack } from '@mui/material'
 import React from 'react'
-import Header from './Header'
-import Title from '../shared/Title'
-import { Grid } from '@mui/material'
-import ChatList from '../specific/ChatList'
 
-const AppLayout = () => WrappedComponent => {
-  return (props) => {
+export const LayoutLoaders = () => {
     return (
-        <>
-            <Title />
-            <Header />
-
-            <Grid container height={"calc(100vh - 4rem)"}>
+        <Grid container height={"calc(100vh - 4rem)"} spacing={"1rem"}>
               <Grid 
                 item 
                 sm={4}
@@ -24,10 +16,17 @@ const AppLayout = () => WrappedComponent => {
                 }}
                 height={"100%"} 
               >
-                <ChatList chats={[1,2,3,4,5]} />
+                <Skeleton variant='rectangular'height={"100vh"}/>
               </Grid>
-              <Grid item xs={12} sm={8} md={5} lg={6} height={"100%"} bgcolor="primary.main">
-                <WrappedComponent {...props} />
+              <Grid item xs={12} sm={8} md={5} lg={6} height={"100%"} >
+                <Stack spacing={"1rem"}>
+                    {
+                        Array.from({length: 10}).map((_, index) => (
+                            <Skeleton key={index} variant='rectangular' height={"5rem"}/>
+                        ))
+                    }
+                </Stack>
+                
               </Grid>
               <Grid 
                 item 
@@ -39,19 +38,11 @@ const AppLayout = () => WrappedComponent => {
                     xs: "none",
                     md: "block",
                   },
-                  padding: "2rem",
-                  bgcolor: "rgba(0,0,0,0.85)"
+                  
                 }}
               >
-                Third
+                <Skeleton variant='rectangular' height={"100vh"}/>
               </Grid>
             </Grid>
-
-            
-            
-        </>
     )
-  }
 }
-
-export default AppLayout
